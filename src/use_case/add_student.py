@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from src.entities.student_entitie import Student, Faculte, Grade
+from src.entities.student_entitie import Student, Faculty, Grade
 from src.use_case.interface.interface import StudentRepo
 from typing import Optional
 
@@ -12,7 +12,7 @@ class AddStudentInput:
     id : int
     firstname : str
     lastname : str
-    faculte : Faculte
+    faculte : Faculty
     grade : Grade
     gpa : float
 

@@ -8,6 +8,7 @@ from enum import Enum
 
 MAX_GPA = 4.00
 MIN_GPA = 0.00
+ID_SIZE = 10
 file="test/test.json"
 
 
@@ -109,13 +110,16 @@ def deleteStudent(id:int) -> bool:
     return False
 
 
-student1 = Student(id=202388,firstname="djevenson", lastname="janvier", faculty=Faculte.CS, grade=Grade.SENIOR, gpa=2.14) 
+student1 = Student(id=2025040036,firstname="djevenson", lastname="janvier", faculty=Faculte.GA, grade=Grade.SENIOR, gpa=2.14) 
+def _toCliRow(student:Student) -> str:
+    return f"{student.id:{ID_SIZE+1}} | {student.firstname:<15} | {student.lastname:<15} | {student.faculty.value:<20} | {student.grade.value:10} | {student.gpa}"
 
 def try5():
-    print(_toDict(student1))
-    #_saveStudent(student1)
-    deleteStudent(202388)
-
+    #print(_toDict(student1))
+    print(_toCliRow(student1))
+    print(len(str(student1.faculty.value)))
+    print(deleteStudent(202388))
+    print(len(str(float(3.550))))
 
 
 try5()

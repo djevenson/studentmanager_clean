@@ -4,13 +4,17 @@ from enum import Enum
 
 MAX_GPA = 4.00
 MIN_GPA = 0.00
+ID_SIZE = 10
+ERR_NAME = "Name connot be empty"
+ERR_GPA = f"GPA shoud be in {MIN_GPA} - {MAX_GPA}"
+ERR_ID = f"ID shoud have {ID_SIZE} characters"
 
 
 class InvalideData(Exception):
     pass
 
 
-class Faculte(Enum):
+class Faculty(Enum):
     CE = "Civil ingeneering"
     GA = "Agronomy"
     BA = "Business administration"
@@ -30,19 +34,22 @@ class Student:
     id : int
     firstname : str
     lastname : str
-    faculty : Faculte
+    faculty : Faculty
     grade : Grade
     gpa : float = field(default_factory=0.00)
 
     def __post_init__(self):
         if not self.firstname.strip():
-            raise InvalideData("Firstname connot be empty")
+            raise InvalideData(ERR_NAME)
         if not self.lastname.strip():
-            raise InvalideData("Lastname connot be empty")
+            raise InvalideData(ERR_NAME)
         if self.gpa < MIN_GPA :
-            raise InvalideData(f"GPA cannot be less than {MIN_GPA}")
+            raise InvalideData(ERR_GPA)
         if self.gpa > MAX_GPA :
-            raise InvalideData(f"GPA cannot be greater than {MAX_GPA}")
-        
+            raise InvalideData(ERR_GPA)
+        if len(str(self.id)) != ID_SIZE :
+            raise InvalideData(ERR_ID)
+        self.id = float(self.id)
         self.firstname = self.firstname.strip()
-        self.lastname = self.lastname.strip()  
+        self.lastname = self.lastname.strip()
+      

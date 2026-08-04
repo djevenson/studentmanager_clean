@@ -1,7 +1,7 @@
 import os
 import json
 from typing import Dict, List, Optional, Any
-from src.entities.student_entitie import Student, Faculte, Grade
+from src.entities.student_entitie import Student, Faculty, Grade
 from src.use_case.interface.interface import StudentRepo
 
 
@@ -27,7 +27,6 @@ class InMemoryRepository(StudentRepo):
                 return True
         return False
         
-
     def getStudentByID(self, id:int) -> Optional[Student]:
         for s in self._student_store:
             if s["id"] == id:
@@ -36,7 +35,7 @@ class InMemoryRepository(StudentRepo):
 
     def getStudentByName(self, firstname:str, lastname:str) -> Optional[Student]:
         for s in self._student_store:
-            if s["firstname"] == firstname or s["lastname"] == lastname:
+            if s["firstname"] == firstname and s["lastname"] == lastname:
                 return self._fromDict(s)
         return None
 
@@ -47,7 +46,7 @@ class InMemoryRepository(StudentRepo):
             return students
         return []
 
-    def getAllStudentByFaculte(self, faculte:Faculte) -> List[Student]:
+    def getAllStudentByFaculte(self, faculte:Faculty) -> List[Student]:
         students = []
         for s in self._student_store:
             if s["faculty"] == faculte.value:
@@ -58,20 +57,20 @@ class InMemoryRepository(StudentRepo):
     def getAllStudentByGrade(self, grade:Grade) -> List[Student]:
         students = []
         for s in self._student_store:
-            if s["grades"] == grade.value:
+            if s["grade"] == grade.value:
                 students.append(self._fromDict(s))
                 return students
         return []
 
-    def getAllStudentByFaculteGrade(self, faculte:Faculte, grade:Grade) -> List[Student]:
+    def getAllStudentByFacultyGrade(self, faculte:Faculty, grade:Grade) -> List[Student]:
         students = []
         for s in self._student_store:
-            if s["faculty"] == faculte.value:
+            if s["faculty"] == faculte.value and s["grade"] == grade.value:
                 students.append(self._fromDict(s))
                 return students
         return []
 
-    def _chargeStudent(self) -> List[Dict[str,Any]]:
+    def _chargeStudent(self) -> List[Student]:
         if os.path.exists(self.file):
             with open(self.file_path, "r") as f:
                 try:
@@ -93,13 +92,13 @@ class InMemoryRepository(StudentRepo):
         student_dict = self._toDict(student)
         if self._checkStudentId(student_dict):
             self._student_store.append(student_dict)
-            with open(self.file, "w") as f:
+            with open(self.file_path, "w") as f:
                 json.dump(self._student_store, f, indent=4)
                 return True
         return False
 
     def _saveChange(self) -> None:
-        with open(self.file, "w") as f:
+        with open(self.file_path, "w") as f:
             json.dump(self._student_store, f, indent=4)
 
     def _fromDict(self, student:Dict[Student]) -> Student:
@@ -107,7 +106,7 @@ class InMemoryRepository(StudentRepo):
             id=student["id"],
             firstname=student["firstname"],
             firstname=student["lastname"], 
-            faculty=Faculte(student["faculty"]), 
+            faculty=Faculty(student["faculty"]), 
             grade=Grade(student["grade"]),
             gpa=student["gpa"] 
         )

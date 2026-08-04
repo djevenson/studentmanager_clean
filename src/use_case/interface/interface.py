@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Optional, List
-from src.entities.student_entitie import Student, Faculte, Grade
+from src.entities.student_entitie import Student, Faculty, Grade
 
 class StudentRepo(ABC):
 
@@ -17,7 +17,7 @@ class StudentRepo(ABC):
         ...
 
     @abstractmethod
-    def getAllStudentByFaculte(self, faculte : Faculte) -> List[Student]:
+    def getAllStudentByFaculty(self, faculty : Faculty) -> List[Student]:
         ...
 
     @abstractmethod
@@ -25,7 +25,7 @@ class StudentRepo(ABC):
         ...
 
     @abstractmethod
-    def getAllStudentByFaculteGrade(self, faculte : Faculte, grade : Grade) -> List[Student]:
+    def getAllStudentByFacultyGrade(self, faculty : Faculty, grade : Grade) -> List[Student]:
         ...
 
     @abstractmethod

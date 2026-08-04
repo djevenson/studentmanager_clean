@@ -1,5 +1,5 @@
-from dataclasses import dataclass, field
-from src.entities.student_entitie import Student, Faculte, Grade
+from dataclasses import dataclass
+from src.entities.student_entitie import Student
 from src.use_case.interface.interface import StudentRepo
 from typing import Optional, List
 
@@ -16,6 +16,9 @@ class SearchStudentByIdInput:
 class SearchStudentByNameInput:
     firstname : str
     lastname : str
+    def __post_init__(self):
+        self.firstname = self.firstname.strip()
+        self.lastname = self.lastname.strip()
 
 
 @dataclass
