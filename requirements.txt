@@ -1,0 +1,5 @@
+uvicorn
+pydentic
+fastapi
+psycopg2
+dotenv
