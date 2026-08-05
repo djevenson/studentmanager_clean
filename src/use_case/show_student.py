@@ -22,29 +22,32 @@ class ShowStudentOuput:
 class ShowStudent:
     def __init__(self, repository : StudentRepo):
         self.repository=repository
+        self.faculty = "ALL"
+        self.grade = "ALL"
 
     def execute(self, input_data : ShowStudentInput) -> ShowStudentOuput:
-        faculte = "ALL"
-        grade = "ALL"
-        if not input_data.faculte and not input_data.grade:
+        
+        if not input_data.faculty and not input_data.grade:
             students = self.repository.getAllStudent()
             
         elif not input_data.grade:
             students = self.repository.getAllStudentByFaculty(input_data.faculty)
-            faculte = input_data.faculty
+            self.faculty = input_data.faculty
 
-        elif not input_data.faculte:
+        elif not input_data.faculty:
             students = self.repository.getAllStudentByGrade(input_data.grade)
-            grade=input_data.grade
+            self.grade=input_data.grade
 
         else:
             students=self.repository.getAllStudentByFacultyGrade(input_data.faculty, input_data.grade)
-            faculte=input_data.faculty
-            grade=input_data.grade
+            self.faculty=input_data.faculty
+            self.grade=input_data.grade
 
         students_sorted = sorted(students, key=lambda s: s.lastname, reverse=True)
         return ShowStudentOuput(
-            faculte=faculte,
-            grade=grade,
-            students=students_sorted
+            faculty=self.faculty,
+            grade=self.grade,
+            students=students_sorted,
+            total=len(students)
+
         )

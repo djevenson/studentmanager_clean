@@ -4,8 +4,8 @@ from src.use_case.interface.interface import StudentRepo
 from typing import Optional, List
 
 
-SEARCH_SUCCESS_MESSAGE = "Student not found"
-SEARCH_ECHEC_MESSAGE = "There is the student"
+SEARCH_SUCCESS_MESSAGE = "There is the student"
+SEARCH_ECHEC_MESSAGE = "Student not found"
 
 @dataclass
 class SearchStudentByIdInput:

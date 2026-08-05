@@ -32,7 +32,7 @@ class StudentPresenter:
 
     @staticmethod
     def _gradeToCliOption():
-        return f"1. {Grade.PREP.value} | 2. {Grade.FRESHMAN.value} | 3. {Grade.SOFOMORE.value} | 4 {Grade.JUNIOR.value} | {Grade.SENIOR.value}"
+        return f"1. {Grade.PREP.value} | 2. {Grade.FRESHMAN.value} | 3. {Grade.SOFOMORE.value} | 4. {Grade.JUNIOR.value} | 5. {Grade.SENIOR.value}"
 
 
 

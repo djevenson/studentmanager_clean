@@ -1,0 +1,26 @@
+[
+    {
+        "id": 2025040036,
+        "firstname": "janvier",
+        "lastname": "djevenson",
+        "faculty": "Computer science",
+        "grade": "Second grade",
+        "gpa": 2.0
+    },
+    {
+        "id": 1234565412,
+        "firstname": "jak",
+        "lastname": "jean",
+        "faculty": "Business administration",
+        "grade": "Fith grade",
+        "gpa": 3.0
+    },
+    {
+        "id": 1232323434,
+        "firstname": "messi",
+        "lastname": "leo",
+        "faculty": "Civil ingeneering",
+        "grade": "Second grade",
+        "gpa": 4.0
+    }
+]

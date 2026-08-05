@@ -49,7 +49,7 @@ class Student:
             raise InvalideData(ERR_GPA)
         if len(str(self.id)) != ID_SIZE :
             raise InvalideData(ERR_ID)
-        self.id = float(self.id)
+        self.gpa = float(self.gpa)
         self.firstname = self.firstname.strip()
         self.lastname = self.lastname.strip()
       

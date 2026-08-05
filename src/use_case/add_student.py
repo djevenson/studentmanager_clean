@@ -5,7 +5,7 @@ from typing import Optional
 
 
 ADD_SUCC_MESSAGE = "Student added successfully"
-ADD_ECHEC_MESSAGE = "Student with this ID already exists"
+ 
 
 @dataclass
 class AddStudentInput:
@@ -33,7 +33,8 @@ class AddStudent:
         exist_id = self.repository.getStudentByID(input_data.id)
         if exist_id:
             return AddStudentOutput(
-                message = ADD_ECHEC_MESSAGE,
+                message = f"Student with ID : '{input_data.id}' already exists",
+                student = None,
                 status = False
             )
         else:

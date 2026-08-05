@@ -121,5 +121,5 @@ def try5():
     print(deleteStudent(202388))
     print(len(str(float(3.550))))
 
-
-try5()
+print((float(3.5550)))
+#try5()
