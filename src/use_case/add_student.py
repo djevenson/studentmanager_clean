@@ -12,7 +12,7 @@ class AddStudentInput:
     id : int
     firstname : str
     lastname : str
-    faculte : Faculty
+    faculty : Faculty
     grade : Grade
     gpa : float
 
@@ -42,7 +42,7 @@ class AddStudent:
                     id = input_data.id,
                     firstname = input_data.firstname,
                     lastname = input_data.lastname,
-                    faculty = input_data.faculte,
+                    faculty = input_data.faculty,
                     gpa = input_data.gpa,
                     grade = input_data.grade
             )

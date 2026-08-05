@@ -9,13 +9,13 @@ REPOSITORY_FILE = "src/interface_adapter/repositories/student_repo.json"
 
 
 class InMemoryRepository(StudentRepo):
-    def __init__(self, file_path:str=REPOSITORY_FILE):
+    def __init__(self, file_path:str ):
         self.file_path = file_path
         self._student_store:List[Dict[str, Student]] = self._chargeStudent()
 
     def addStudent(self, student:Student) -> Optional[Student]:
-        student_dict  = self._toDict(student)
-        if self._saveStudent(student_dict):
+        #student_dict  = self._toDict(student)
+        if self._saveStudent(student):
             return student
         return None
 
@@ -46,7 +46,7 @@ class InMemoryRepository(StudentRepo):
             return students
         return []
 
-    def getAllStudentByFaculte(self, faculte:Faculty) -> List[Student]:
+    def getAllStudentByFaculty(self, faculte:Faculty) -> List[Student]:
         students = []
         for s in self._student_store:
             if s["faculty"] == faculte.value:
@@ -71,7 +71,7 @@ class InMemoryRepository(StudentRepo):
         return []
 
     def _chargeStudent(self) -> List[Student]:
-        if os.path.exists(self.file):
+        if os.path.exists(self.file_path):
             with open(self.file_path, "r") as f:
                 try:
                     data = json.load(f)
@@ -105,7 +105,7 @@ class InMemoryRepository(StudentRepo):
         return Student(
             id=student["id"],
             firstname=student["firstname"],
-            firstname=student["lastname"], 
+            lastname=student["lastname"], 
             faculty=Faculty(student["faculty"]), 
             grade=Grade(student["grade"]),
             gpa=student["gpa"] 

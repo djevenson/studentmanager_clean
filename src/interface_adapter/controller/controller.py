@@ -4,7 +4,7 @@ from src.use_case.delete_student import DeleteStudent, DeleteStudentInput
 from src.use_case.search_student import SearchStudentByName, SearchStudentById, SearchStudentByIdInput, SearchStudentByNameInput
 from src.use_case.show_student import ShowStudentInput, ShowStudent
 from src.use_case.interface.interface import StudentRepo
-
+from src.entities.student_entitie import Faculty, Grade
 
 
 class StudentController:
@@ -15,39 +15,55 @@ class StudentController:
         self.search_name_use_case = SearchStudentByName(repository)
         self.show_use_case = ShowStudent(repository)
 
-    def addStudent(self, input_data:AddStudentInput) -> Dict[str, Any]:
-        output_data = self.add_use_case.execute(input_data)
+    def addStudent(self, id:int, firstname:str, lastname:str, faculty:Faculty, grade:Grade, gpa:float) -> Dict[str, Any]:
+        output_data = self.add_use_case.execute(AddStudentInput(
+                id=id,
+                firstname=firstname,
+                lastname=lastname,
+                faculty=faculty,
+                grade=grade,
+                gpa=gpa
+            )
+        )
         return {
             "succes": output_data.status,
             "message": output_data.message,
             "student": output_data.student
         }
 
-    def deleteStudent(self, input_data:DeleteStudentInput) -> Dict[str, Any]:
-        output_data = self.delete_use_case.execute(input_data)
+    def deleteStudent(self, id:int) -> Dict[str, Any]:
+        output_data = self.delete_use_case.execute(DeleteStudentInput(id=id))
         return {
             "succes": output_data.status,
             "message": output_data.message
         }
 
-    def searchStudentById(self, input_data:SearchStudentByIdInput) -> Dict[str, Any]:
-        output_data = self.search_id_use_case.execute(input_data) 
+    def searchStudentById(self, id:int) -> Dict[str, Any]:
+        output_data = self.search_id_use_case.execute(SearchStudentByIdInput(id=id)) 
         return {
             "succes": output_data.status,
             "message": output_data.message,
             "student": output_data.student
         }
 
-    def searchStudentByName(self, input_data:SearchStudentByNameInput) -> Dict[str, Any]:
-        output_data = self.search_name_use_case.execute(input_data) 
+    def searchStudentByName(self, firstname:str, lastname:str) -> Dict[str, Any]:
+        output_data = self.search_name_use_case.execute(SearchStudentByNameInput(
+            firstname=firstname,
+            lastname=lastname
+            )
+        ) 
         return {
             "succes": output_data.status,
             "message": output_data.message,
             "student": output_data.student
         }
 
-    def showStudent(self, input_data:ShowStudentInput) -> Dict[str, Any]:
-        output_data = self.show_use_case.execute(input_data)
+    def showStudent(self, faculty:Faculty, grade:Grade) -> Dict[str, Any]:
+        output_data = self.show_use_case.execute(ShowStudentInput(
+            faculty=faculty,
+            grade=grade
+            )
+        )
         return {
             "faculty": output_data.faculty,
             "grade": output_data.grade,
