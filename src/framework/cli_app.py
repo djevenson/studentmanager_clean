@@ -1,7 +1,7 @@
 from src.interface_adapter.presenters.presenter import StudentPresenter, _C
 from src.interface_adapter.repositories.memory_repo import InMemoryRepository
 from src.interface_adapter.controller.controller import StudentController
-from src.entities.student_entitie import Faculty, Grade, ERR_GPA, ERR_ID, ERR_NAME, MAX_GPA, MIN_GPA
+from src.entities.student_entitie import Faculty, Grade, ID_SIZE
 
 
 
@@ -65,13 +65,16 @@ def runCliApp() -> None:
             print(f"\n{_C.BOLD}    Bye!{_C.RESET}\n")
             break
 
+
         elif cmd in ("add", "1"):
+
             id = int(input("ID          : "))
             firstname = input("Firstname   : ")
             lastname = input("Lastname    : ")
             faculty = _chooseFaculty() 
             grade = _chooseGade()
             gpa = float(input("GPA         : "))
+
             output = controller.addStudent(id, firstname, lastname, faculty, grade, gpa)
             print(f"\nSucces: {output["succes"]}\n")
             if not output["succes"]:
@@ -83,7 +86,8 @@ def runCliApp() -> None:
 
         elif cmd in ("list", "2"):
             output = controller.showStudent(None, None)
-            print(StudentPresenter._toCliRow(output["students"]))
+            StudentPresenter._toCliTable(output["students"])
+
 
         elif cmd in ("search by id", "3"):
             id = int(input("ID          : "))
@@ -105,6 +109,7 @@ def runCliApp() -> None:
             else:
                 print(StudentPresenter._toCliDetail(output["student"]))
                 _C._ok(f"{output["message"]}\n")
+
             
         elif cmd in ("delete", "5"):
             while True:
@@ -119,6 +124,7 @@ def runCliApp() -> None:
                 _C._err(f"{output["message"]}\n")
             else:
                 _C._ok(f"{output["message"]}\n")      
+
 
         else:
             _C._inval(f"Enter '{cmd}' invalide")

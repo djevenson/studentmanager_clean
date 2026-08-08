@@ -121,5 +121,7 @@ def try5():
     print(deleteStudent(202388))
     print(len(str(float(3.550))))
 
-print((float(3.5550)))
-#try5()
+print(len("STUDENT TABLE"))
+print(f"{'_'*100}")
+print(f"|{' '*42}STUDENT TABLE{' '*43}|")
+print(f"|{'-'*98}|")

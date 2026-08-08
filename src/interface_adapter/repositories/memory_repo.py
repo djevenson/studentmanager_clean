@@ -43,8 +43,7 @@ class InMemoryRepository(StudentRepo):
         students = []
         for s in self._student_store:
             students.append(self._fromDict(s))
-            return students
-        return []
+        return students
 
     def getAllStudentByFaculty(self, faculte:Faculty) -> List[Student]:
         students = []

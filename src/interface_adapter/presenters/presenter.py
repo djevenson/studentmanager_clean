@@ -1,18 +1,25 @@
 from src.entities.student_entitie import Student, Faculty, Grade, ID_SIZE
-
+from typing import Optional, List
 
 
 class StudentPresenter:
     @staticmethod
-    def _toCliRow(student:Student) -> str:
-        return f"\
-        {student.id:<{ID_SIZE}+1} |\
-        {student.firstname:<15} |\
-        {student.lastname:<15} |\
-        {student.faculty.value:<20} |\
-        {student.grade.value:10} |\
-        {student.gpa}\
-        "
+    def _toCliTable(students:List[Student]) -> str:
+        if len(students) > 0:
+            print(f"{'_'*100}")
+            print(f"|{' '*42}STUDENT TABLE{' '*43}|")
+            print(f"|{'-'*98}|")
+            print(f"| {"ID":{ID_SIZE}} | {"Firstname":<15} | {"lastname":<15} | {"Faculty":<24} | {"Grade":13} | {"GPA"}  |")
+            print(f"|{'-'*98}|")
+            total = 0
+            for student in students:
+                print(f"| {student.id:{ID_SIZE}} | {student.firstname:<15} | {student.lastname:<15} | {student.faculty.value:<24} | {student.grade.value:13} | {student.gpa}  |")
+                total += 1
+            print(f"|{'-'*98}|")
+            print(f"| TOTAL : {total:4}{' '*85}|")
+            print(f"|{'_'*98}|")
+        
+            
     
     @staticmethod
     def _toCliDetail(student:Student):

@@ -22,5 +22,21 @@
         "faculty": "Civil ingeneering",
         "grade": "Second grade",
         "gpa": 4.0
+    },
+    {
+        "id": 1234567870,
+        "firstname": "jean",
+        "lastname": "fritz",
+        "faculty": "Business administration",
+        "grade": "Third grade",
+        "gpa": 3.0
+    },
+    {
+        "id": 1234325672,
+        "firstname": "John",
+        "lastname": "Kerry",
+        "faculty": "Computer science",
+        "grade": "Third grade",
+        "gpa": 3.0
     }
 ]
