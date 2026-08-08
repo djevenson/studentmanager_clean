@@ -38,5 +38,21 @@
         "faculty": "Computer science",
         "grade": "Third grade",
         "gpa": 3.0
+    },
+    {
+        "id": 1234543456,
+        "firstname": "sara",
+        "lastname": "fina",
+        "faculty": "Computer science",
+        "grade": "Fourth grade",
+        "gpa": 2.0
+    },
+    {
+        "id": 1234565478,
+        "firstname": "abee",
+        "lastname": "cool",
+        "faculty": "Business administration",
+        "grade": "Third grade",
+        "gpa": 3.56
     }
 ]
