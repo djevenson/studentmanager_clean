@@ -22,5 +22,13 @@
         "faculty": "Computer science",
         "grade": "Third grade",
         "gpa": 3.0
+    },
+    {
+        "id": 5643252446,
+        "firstname": "janvier",
+        "lastname": "bob",
+        "faculty": "Computer science",
+        "grade": "Third grade",
+        "gpa": 3.0
     }
 ]

@@ -29,7 +29,7 @@ class StudentPresenter:
             f"Lastname    : {student.lastname}",
             f"Faculty     : {student.faculty.value}",
             f"Grade       : {student.grade.value}",
-            f"GPA         : {student.gpa}"
+            f"GPA         : {student.gpa}\n"
         ]
         return "\n".join(lines)
 
