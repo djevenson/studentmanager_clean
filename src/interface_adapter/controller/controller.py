@@ -35,7 +35,7 @@ class StudentController:
         output_data = self.delete_use_case.execute(DeleteStudentInput(id=id))
         return {
             "succes": output_data.status,
-            "message": output_data.message
+            "message": f"{output_data.message} ID: {id}"
         }
 
     def searchStudentById(self, id:int) -> Dict[str, Any]:

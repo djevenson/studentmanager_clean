@@ -17,7 +17,7 @@ class StudentPresenter:
                 total += 1
             print(f"|{'-'*98}|")
             print(f"| TOTAL : {total:4}{' '*85}|")
-            print(f"|{'_'*98}|")
+            print(f"|{'_'*98}|\n")
         
             
     

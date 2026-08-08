@@ -119,7 +119,6 @@ def runCliApp() -> None:
                 except ValueError as e:
                     print("ID invalide")
             output = controller.deleteStudent(id)
-            print(f"\nSucces: {output["succes"]}\n")
             if not output["succes"]:
                 _C._err(f"{output["message"]}\n")
             else:
