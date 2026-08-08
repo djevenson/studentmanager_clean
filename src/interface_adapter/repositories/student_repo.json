@@ -30,5 +30,21 @@
         "faculty": "Computer science",
         "grade": "Third grade",
         "gpa": 3.0
+    },
+    {
+        "id": 1234567893,
+        "firstname": "yh",
+        "lastname": "wh",
+        "faculty": "Business administration",
+        "grade": "Third grade",
+        "gpa": 3.0
+    },
+    {
+        "id": 2025040034,
+        "firstname": "Alliance",
+        "lastname": "Jonel",
+        "faculty": "Computer science",
+        "grade": "First grade",
+        "gpa": 2.0
     }
 ]

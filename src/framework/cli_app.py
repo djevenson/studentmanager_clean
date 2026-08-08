@@ -53,15 +53,15 @@ def _optonalGade() -> Grade:
         cmd = input(f"{_C.BOLD}> {_C.RESET}").strip().lower()
         if not cmd:
             return None
-        elif cmd.lower().strip() in ("1", f"{Grade.PREP.value.lower()}"):
+        elif cmd in ("1", f"{Grade.PREP.value.lower()}"):
             return Grade.PREP
-        elif cmd.lower().strip() in ("2", f"{Grade.FRESHMAN.value.lower()}"):
+        elif cmd in ("2", f"{Grade.FRESHMAN.value.lower()}"):
             return Grade.FRESHMAN
-        elif cmd.lower().strip() in ("3", f"{Grade.SOFOMORE.value.lower()}"):
+        elif cmd in ("3", f"{Grade.SOFOMORE.value.lower()}"):
             return Grade.SOFOMORE
-        elif cmd.lower().strip() in ("4", f"{Grade.JUNIOR.value.lower()}"):
+        elif cmd in ("4", f"{Grade.JUNIOR.value.lower()}"):
             return Grade.JUNIOR
-        elif cmd.lower().strip() in ("5", f"{Grade.SENIOR.value.lower()}"):
+        elif cmd in ("5", f"{Grade.SENIOR.value.lower()}"):
             return Grade.SENIOR
         else:
             _C._inval(f"Enter '{cmd}' invalide \n Did you mean leave ' ' (blank) 4 all?")

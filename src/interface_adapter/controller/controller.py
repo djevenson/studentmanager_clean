@@ -65,8 +65,8 @@ class StudentController:
             )
         )
         return {
-            "faculty": output_data.faculty.value,
-            "grade": output_data.grade.value,
+            "faculty": output_data.faculty,
+            "grade": output_data.grade,
             "students": output_data.students,
             "total": output_data.total
         }
