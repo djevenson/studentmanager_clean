@@ -13,7 +13,7 @@ class StudentPresenter:
             print(f"|{'-'*98}|")
             total = 0
             for student in students:
-                print(f"| {student.id:{ID_SIZE}} | {student.firstname:<15} | {student.lastname:<15} | {student.faculty.value:<24} | {student.grade.value:13} | {student.gpa:4}  |")
+                print(f"| {student.id:{ID_SIZE}} | {student.firstname:<15} | {student.lastname:<15} | {student.faculty.value:<24} | {student.grade.value:13} | {student.gpa:4} |")
                 total += 1
             print(f"|{'-'*98}|")
             print(f"| TOTAL : {total:4}{' '*85}|")
