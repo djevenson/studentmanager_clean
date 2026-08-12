@@ -9,7 +9,7 @@ SEARCH_ECHEC_MESSAGE = "Student not found"
 
 @dataclass
 class SearchStudentByIdInput:
-    id : int
+    id : str
 
 
 @dataclass

@@ -1,50 +1,26 @@
 [
     {
-        "id": 2025040036,
+        "id": "2026040001",
         "firstname": "janvier",
-        "lastname": "djevenson",
-        "faculty": "Computer science",
-        "grade": "Second grade",
-        "gpa": 2.0
-    },
-    {
-        "id": 1234567870,
-        "firstname": "jean",
-        "lastname": "fritz",
-        "faculty": "Business administration",
-        "grade": "Third grade",
-        "gpa": 3.0
-    },
-    {
-        "id": 1234325672,
-        "firstname": "John",
-        "lastname": "Kerry",
-        "faculty": "Computer science",
-        "grade": "Third grade",
-        "gpa": 3.0
-    },
-    {
-        "id": 5643252446,
-        "firstname": "janvier",
-        "lastname": "bob",
-        "faculty": "Computer science",
-        "grade": "Third grade",
-        "gpa": 3.0
-    },
-    {
-        "id": 1234567893,
-        "firstname": "yh",
-        "lastname": "wh",
-        "faculty": "Business administration",
-        "grade": "Third grade",
-        "gpa": 3.0
-    },
-    {
-        "id": 2025040034,
-        "firstname": "Alliance",
-        "lastname": "Jonel",
+        "lastname": "Djevenson",
         "faculty": "Computer science",
         "grade": "First grade",
-        "gpa": 2.0
+        "gpa": "0.00"
+    },
+    {
+        "id": "2026040002",
+        "firstname": "kerry",
+        "lastname": "janvier",
+        "faculty": "Computer science",
+        "grade": "First grade",
+        "gpa": "0.00"
+    },
+    {
+        "id": "2026040003",
+        "firstname": "shama",
+        "lastname": "boyer",
+        "faculty": "Computer science",
+        "grade": "First grade",
+        "gpa": "0.00"
     }
 ]

@@ -1,5 +1,5 @@
 from src.interface_adapter.presenters.presenter import StudentPresenter, _C
-from src.interface_adapter.repositories.memory_repo import InMemoryRepository
+from src.interface_adapter.repositories.memory_repo import InMemoryRepository, InMemoryStudentIdGenerator
 from src.interface_adapter.controller.controller import StudentController
 from src.entities.student_entitie import Faculty, Grade, ID_SIZE
 
@@ -90,7 +90,8 @@ def _chooseGade() -> Grade:
 
 def runCliApp() -> None:
     repository = InMemoryRepository(REPOSITORY_FILE)
-    controller = StudentController(repository)
+    id_generator = InMemoryStudentIdGenerator(repository)
+    controller = StudentController(repository, id_generator)
 
     _C._banner("Clean Architecture Student Manager CLI")
 
@@ -108,15 +109,11 @@ def runCliApp() -> None:
 
 
         elif cmd in ("add", "1"):
-
-            id = int(input("ID          : "))
             firstname = input("Firstname   : ")
             lastname = input("Lastname    : ")
             faculty = _chooseFaculty() 
-            grade = _chooseGade()
-            gpa = float(input("GPA         : "))
 
-            output = controller.addStudent(id, firstname, lastname, faculty, grade, gpa)
+            output = controller.addStudent( firstname, lastname, faculty)
             if not output["succes"]:
                 _C._err(f"{output["message"]}\n")
             else:
@@ -135,7 +132,7 @@ def runCliApp() -> None:
                 _C._err("No student yet\n")
 
         elif cmd in ("search by id", "3"):
-            id = int(input("ID          : "))
+            id = input("ID          : ").strip()
             output = controller.searchStudentById(id)
             if not output["succes"]:
                 _C._err(f"{output["message"]}\n")

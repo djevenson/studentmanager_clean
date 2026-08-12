@@ -31,25 +31,27 @@ class Grade(Enum):
 
 @dataclass
 class Student:
-    id : int
     firstname : str
     lastname : str
     faculty : Faculty
-    grade : Grade
-    gpa : float = field(default_factory=0.00)
+    id : str 
+    grade : Grade = Grade.PREP
+    gpa : str = "0"
 
     def __post_init__(self):
         if not self.firstname.strip():
             raise InvalideData(ERR_NAME)
         if not self.lastname.strip():
             raise InvalideData(ERR_NAME)
-        if self.gpa < MIN_GPA :
+        
+        gpa_value = float(self.gpa)
+        if gpa_value < MIN_GPA :
             raise InvalideData(ERR_GPA)
-        if self.gpa > MAX_GPA :
+        if gpa_value > MAX_GPA :
             raise InvalideData(ERR_GPA)
         if len(str(self.id)) != ID_SIZE :
             raise InvalideData(ERR_ID)
-        self.gpa = float(self.gpa)
+        
         self.firstname = self.firstname.strip()
         self.lastname = self.lastname.strip()
-      
+        self.gpa = f"{gpa_value:.2f}"

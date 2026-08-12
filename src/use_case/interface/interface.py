@@ -35,3 +35,14 @@ class StudentRepo(ABC):
     @abstractmethod
     def deleteStudent(self, id : int) -> bool:
         ...
+
+    @abstractmethod
+    def getLastRank(self, prefix:str) -> int:
+        ...
+
+
+
+class StudentIdGeneratorInterface(ABC):
+    @abstractmethod
+    def generate(self, faculty: Faculty) -> str:
+        ...
