@@ -69,7 +69,7 @@ studentmanager_clean/
 - add_student (add a student to the repository)
 - delete_student (delete a student from the repository)
 - search_student (search for a student by name or ID)
-- show_student (display information about a all students or a specific student)
+- show_student (display information about  all students or a specific student)
 
 ### interface_adapter
 - controller (handle user input and call the appropriate use case)
@@ -87,7 +87,7 @@ studentmanager_clean/
 - entry point for the application, runs the CLI or web interface based on user input
 
 ### requirements.txt
-- list of required dependencies for the application
+#### list of required dependencies for the application
 * pytest
 * uvicorn
 * fastapi
