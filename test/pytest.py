@@ -4,19 +4,21 @@ from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
 from dataclasses import dataclass, field
 from enum import Enum
-
+from datetime import datetime
 
 MAX_GPA = 4.00
 MIN_GPA = 0.00
 ID_SIZE = 10
-file="test/test.json"
+ERR_NAME = "Name connot be empty"
+ERR_GPA = f"GPA shoud be in {MIN_GPA} - {MAX_GPA}"
+ERR_ID = f"ID shoud have {ID_SIZE} characters"
 
 
 class InvalideData(Exception):
     pass
 
 
-class Faculte(Enum):
+class Faculty(Enum):
     CE = "Civil ingeneering"
     GA = "Agronomy"
     BA = "Business administration"
@@ -33,93 +35,37 @@ class Grade(Enum):
 
 @dataclass
 class Student:
-    id : int
     firstname : str
     lastname : str
-    faculty : Faculte
-    grade : Grade
-    gpa : float = field(default_factory=0)
+    faculty : Faculty
+    id : str = "0"
+    grade : Grade = Grade.PREP
+    gpa : str = "0"
 
     def __post_init__(self):
         if not self.firstname.strip():
-            raise InvalideData("Firstname connot be empty")
+            raise InvalideData(ERR_NAME)
         if not self.lastname.strip():
-            raise InvalideData("Lastname connot be empty")
-        if self.gpa < MIN_GPA :
-            raise InvalideData(f"GPA cannot be less than {MIN_GPA}")
-        if self.gpa > MAX_GPA :
-            raise InvalideData(f"GPA cannot be greater than {MAX_GPA}")
+            raise InvalideData(ERR_NAME)
+        
+        gpa_value = float(self.gpa)
+        if gpa_value < MIN_GPA :
+            raise InvalideData(ERR_GPA)
+        if gpa_value > MAX_GPA :
+            raise InvalideData(ERR_GPA)
+        if len(str(self.id)) != ID_SIZE :
+            raise InvalideData(ERR_ID)
         
         self.firstname = self.firstname.strip()
-        self.lastname = self.lastname.strip()  
+        self.lastname = self.lastname.strip()
+        self.gpa = f"{gpa_value:.2f}"
 
+def create():
+    try:
+        s = Student(id="2026020034", firstname="Djevenson", lastname="Janvier", faculty=Faculty.BA)
+        print(f"ID: {s.id}\nName: {s.firstname} {s.lastname}\nFaculty: {s.faculty.value}")
+        print(datetime.now().year)
+    except Exception as e:
+        print(e)
 
-def _chargeStudent() -> List[Any]:
-        if os.path.exists(file):
-            with open(file, "r") as f:
-                try:
-                    data =json.load(f)
-                    if isinstance(data, list):
-                        return data
-                except json.JSONDecodeError:
-                    return []
-        return []
-
-students:List[Dict[str, Any]] = _chargeStudent()
-
-
-def _checkStudentId(student:Dict[Student]):
-    id = student["id"]
-    for s in students:
-        if s["id"] == id:
-            return False
-    return True
-        
-
-
-def _toDict(student:Student) -> Dict[Student]:
-    return {
-        "id": student.id,
-        "firstname": student.firstname,
-        "lastname": student.lastname,
-        "faculty": student.faculty.value,
-        "grade": student.grade.value,
-        "gpa": student.gpa
-    }
-
-
-def _saveStudent(student:Student):
-    student_dit = _toDict(student)
-    if not _checkStudentId(student_dit):
-        print("student already exists")
-        return
-    students.append(student_dit)
-    with open(file, "w") as f:
-        json.dump(students, f, indent=4)
-
-def _saveChange() -> None:
-    with open(file, "w") as f:
-        json.dump(students, f, indent=4)
-
-def deleteStudent(id:int) -> bool:
-    for s in students:
-        if s["id"] == id:
-            students.remove(s)
-            _saveChange()
-            return True
-    return False
-
-
-student1 = Student(id=2025040036,firstname="djevenson", lastname="janvier", faculty=Faculte.GA, grade=Grade.SENIOR, gpa=2.14) 
-def _toCliRow(student:Student) -> str:
-    return f"{student.id:{ID_SIZE+1}} | {student.firstname:<15} | {student.lastname:<15} | {student.faculty.value:<20} | {student.grade.value:10} | {student.gpa}"
-
-def try5():
-    #print(_toDict(student1))
-    print(_toCliRow(student1))
-    print(len(str(student1.faculty.value)))
-    print(deleteStudent(202388))
-    print(len(str(float(3.550))))
-
-print((float(3.5550)))
-#try5()
+create()
