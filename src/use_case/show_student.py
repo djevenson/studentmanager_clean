@@ -32,16 +32,16 @@ class ShowStudent:
             
         elif not input_data.grade:
             students = self.repository.getAllStudentByFaculty(input_data.faculty)
-            self.faculty = input_data.faculty
+            self.faculty = input_data.faculty.value
 
         elif not input_data.faculty:
             students = self.repository.getAllStudentByGrade(input_data.grade)
-            self.grade=input_data.grade
+            self.grade=input_data.grade.value
 
         else:
             students=self.repository.getAllStudentByFacultyGrade(input_data.faculty, input_data.grade)
-            self.faculty=input_data.faculty
-            self.grade=input_data.grade
+            self.faculty=input_data.faculty.value
+            self.grade=input_data.grade.value
 
         students_sorted = sorted(students, key=lambda s: s.lastname, reverse=True)
         return ShowStudentOuput(

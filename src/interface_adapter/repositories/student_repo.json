@@ -1,58 +1,34 @@
 [
     {
-        "id": 2025040036,
+        "id": "2026040001",
         "firstname": "janvier",
-        "lastname": "djevenson",
+        "lastname": "Djevenson",
         "faculty": "Computer science",
-        "grade": "Second grade",
-        "gpa": 2.0
+        "grade": "First grade",
+        "gpa": "0.00"
     },
     {
-        "id": 1234565412,
-        "firstname": "jak",
-        "lastname": "jean",
-        "faculty": "Business administration",
-        "grade": "Fith grade",
-        "gpa": 3.0
+        "id": "2026040002",
+        "firstname": "kerry",
+        "lastname": "janvier",
+        "faculty": "Computer science",
+        "grade": "First grade",
+        "gpa": "0.00"
     },
     {
-        "id": 1232323434,
-        "firstname": "messi",
-        "lastname": "leo",
+        "id": "2026040003",
+        "firstname": "shama",
+        "lastname": "boyer",
+        "faculty": "Computer science",
+        "grade": "First grade",
+        "gpa": "0.00"
+    },
+    {
+        "id": "2026010001",
+        "firstname": "David",
+        "lastname": "Blanc",
         "faculty": "Civil ingeneering",
-        "grade": "Second grade",
-        "gpa": 4.0
-    },
-    {
-        "id": 1234567870,
-        "firstname": "jean",
-        "lastname": "fritz",
-        "faculty": "Business administration",
-        "grade": "Third grade",
-        "gpa": 3.0
-    },
-    {
-        "id": 1234325672,
-        "firstname": "John",
-        "lastname": "Kerry",
-        "faculty": "Computer science",
-        "grade": "Third grade",
-        "gpa": 3.0
-    },
-    {
-        "id": 1234543456,
-        "firstname": "sara",
-        "lastname": "fina",
-        "faculty": "Computer science",
-        "grade": "Fourth grade",
-        "gpa": 2.0
-    },
-    {
-        "id": 1234565478,
-        "firstname": "abee",
-        "lastname": "cool",
-        "faculty": "Business administration",
-        "grade": "Third grade",
-        "gpa": 3.56
+        "grade": "First grade",
+        "gpa": "0.00"
     }
 ]

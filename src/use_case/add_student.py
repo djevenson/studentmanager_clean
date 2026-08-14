@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from src.entities.student_entitie import Student, Faculty, Grade
-from src.use_case.interface.interface import StudentRepo
+from src.entities.student_entitie import Student, Faculty, InvalideData
+from src.use_case.interface.interface import StudentRepo, StudentIdGeneratorInterface
 from typing import Optional
 
 
@@ -9,12 +9,10 @@ ADD_SUCC_MESSAGE = "Student added successfully"
 
 @dataclass
 class AddStudentInput:
-    id : int
     firstname : str
     lastname : str
     faculty : Faculty
-    grade : Grade
-    gpa : float
+   
 
 
 @dataclass
@@ -26,37 +24,30 @@ class AddStudentOutput:
 
 
 class AddStudent:
-    def __init__(self, repository:StudentRepo):
+    def __init__(self, repository:StudentRepo, id_generator:StudentIdGeneratorInterface):
         self.repository = repository
+        self.id_generator = id_generator
 
-    def execute(self, input_data = AddStudentInput) -> AddStudentOutput:
-        exist_id = self.repository.getStudentByID(input_data.id)
-        if exist_id:
+    def execute(self, input_data : AddStudentInput) -> AddStudentOutput:
+        generated_id = self.id_generator.generate(input_data.faculty)
+        
+        try:
+            student = Student(
+                id = generated_id,
+                firstname = input_data.firstname,
+                lastname = input_data.lastname,
+                faculty = input_data.faculty
+        )
+        except InvalideData as e:
             return AddStudentOutput(
-                message = f"Student with ID : '{input_data.id}' already exists",
                 student = None,
+                message = str(e),
                 status = False
-            )
-        else:
-            try:
-                student = Student(
-                    id = input_data.id,
-                    firstname = input_data.firstname,
-                    lastname = input_data.lastname,
-                    faculty = input_data.faculty,
-                    gpa = input_data.gpa,
-                    grade = input_data.grade
-            )
-            except Exception as e:
-                return AddStudentOutput(
-                    student = None,
-                    message = str(e),
-                    status = False
-            )
+        )
 
-            student = self.repository.addStudent(student)
-            return AddStudentOutput(
-                student = student,
-                message = ADD_SUCC_MESSAGE,
-                status = True
-            )
+        student = self.repository.addStudent(student)
+        return AddStudentOutput(
+            student = student,
+            message = ADD_SUCC_MESSAGE,
+            status = True
+        )

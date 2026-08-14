@@ -9,7 +9,7 @@ DEL_SUCC_MESSAGE = "Student has been deleted succesfully"
 
 @dataclass
 class DeleteStudentInput:
-    id : int
+    id : str
 
 @dataclass
 class DeleteStudentOuput:
