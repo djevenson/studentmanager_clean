@@ -22,5 +22,13 @@
         "faculty": "Computer science",
         "grade": "First grade",
         "gpa": "0.00"
+    },
+    {
+        "id": "2026010001",
+        "firstname": "David",
+        "lastname": "Blanc",
+        "faculty": "Civil ingeneering",
+        "grade": "First grade",
+        "gpa": "0.00"
     }
 ]

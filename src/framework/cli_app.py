@@ -142,8 +142,8 @@ def runCliApp() -> None:
                 
 
         elif cmd in ("search by name", "4"):
-            firstname = input("Firstname   : ")
-            lastname = input("Lastname    : ")
+            firstname = input("Firstname   : ").strip()
+            lastname = input("Lastname    : ").strip()
             output = controller.searchStudentByName(firstname, lastname)
             if not output["succes"]:
                 _C._err(f"{output["message"]}\n")
@@ -154,12 +154,7 @@ def runCliApp() -> None:
 
             
         elif cmd in ("delete", "5"):
-            while True:
-                try:
-                    id = int(input("ID          : "))
-                    break
-                except ValueError as e:
-                    print("ID invalide")
+            id = input("ID          : ").strip()
             output = controller.deleteStudent(id)
             if not output["succes"]:
                 _C._err(f"{output["message"]}\n")

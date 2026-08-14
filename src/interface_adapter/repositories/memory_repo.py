@@ -26,7 +26,7 @@ class InMemoryRepository(StudentRepo):
                 self._saveChange()
                 return True
         return False
-        
+            
     def getStudentByID(self, id:str) -> Optional[Student]:
         for s in self._student_store:
             if s["id"] == id:
@@ -35,7 +35,7 @@ class InMemoryRepository(StudentRepo):
 
     def getStudentByName(self, firstname:str, lastname:str) -> Optional[Student]:
         for s in self._student_store:
-            if s["firstname"] == firstname and s["lastname"] == lastname.lower():
+            if s["firstname"].lower() == firstname.lower() and s["lastname"].lower() == lastname.lower():
                 return self._fromDict(s)
         return None
 
