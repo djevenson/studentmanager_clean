@@ -23,7 +23,7 @@ class StudentPresenter:
     
     @staticmethod
     def _toCliDetail(student:Student):
-        lines = ["\n",
+        lines = [
             f"ID          : {student.id}",
             f"Firstname   : {student.firstname}",
             f"Lastname    : {student.lastname}",

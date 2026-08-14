@@ -30,5 +30,13 @@
         "faculty": "Civil ingeneering",
         "grade": "First grade",
         "gpa": "0.00"
+    },
+    {
+        "id": "2026020001",
+        "firstname": "John",
+        "lastname": "Cena",
+        "faculty": "Business administration",
+        "grade": "First grade",
+        "gpa": "0.00"
     }
 ]
