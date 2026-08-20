@@ -1,8 +1,20 @@
 from src.entities.student_entitie import Student, Faculty, Grade, ID_SIZE
-from typing import Optional, List
+from typing import  Dict, Any, List
+
 
 
 class StudentPresenter:
+    @staticmethod
+    def _toDict(student:Student) -> Dict[str, Any]:
+        return{
+            "ID": student.id,
+            "Firstname": student.firstname,
+            "Lastname": student.lastname,
+            "Laculty": student.faculty.value,
+            "Grade": student.grade.value,
+            "GPA": student.gpa
+        }
+
     @staticmethod
     def _toCliTable(students:List[Student]) -> str:
         if len(students) > 0:
@@ -17,9 +29,6 @@ class StudentPresenter:
                 total += 1
             print(f"|{'-'*98}|")
             print(f" TOTAL : {total:4}{' '*85}\n")
-            
-        
-            
     
     @staticmethod
     def _toCliDetail(student:Student):

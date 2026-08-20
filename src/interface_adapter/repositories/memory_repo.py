@@ -45,10 +45,10 @@ class InMemoryRepository(StudentRepo):
             students.append(self._fromDict(s))
         return students
 
-    def getAllStudentByFaculty(self, faculte:Faculty) -> List[Student]:
+    def getAllStudentByFaculty(self, faculty:Faculty) -> List[Student]:
         students = []
         for s in self._student_store:
-            if s["faculty"] == faculte.value:
+            if s["faculty"] == faculty.value:
                 students.append(self._fromDict(s))
         return students
 
@@ -60,10 +60,10 @@ class InMemoryRepository(StudentRepo):
         return students
         
 
-    def getAllStudentByFacultyGrade(self, faculte:Faculty, grade:Grade) -> List[Student]:
+    def getAllStudentByFacultyGrade(self, faculty:Faculty, grade:Grade) -> List[Student]:
         students = []
         for s in self._student_store:
-            if s["faculty"] == faculte.value and s["grade"] == grade.value:
+            if s["faculty"] == faculty.value and s["grade"] == grade.value:
                 students.append(self._fromDict(s))
         return students
 

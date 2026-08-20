@@ -38,5 +38,13 @@
         "faculty": "Business administration",
         "grade": "First grade",
         "gpa": "0.00"
+    },
+    {
+        "id": "2026030001",
+        "firstname": "Janvier",
+        "lastname": "Djevenson",
+        "faculty": "Agronomy",
+        "grade": "First grade",
+        "gpa": "0.00"
     }
 ]

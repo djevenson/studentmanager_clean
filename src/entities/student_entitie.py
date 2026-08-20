@@ -39,6 +39,8 @@ class Student:
     gpa : str = "0"
 
     def __post_init__(self):
+        if not self.id:
+            raise InvalideData("no id")
         if not self.firstname.strip():
             raise InvalideData(ERR_NAME)
         if not self.lastname.strip():
