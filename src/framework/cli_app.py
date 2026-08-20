@@ -1,13 +1,25 @@
 from src.interface_adapter.presenters.presenter import StudentPresenter, _C
-from src.interface_adapter.repositories.memory_repo import InMemoryRepository, InMemoryStudentIdGenerator
+from src.interface_adapter.repositories.sql_repo import SqlStudentIdGenerator, PosGreSQLSudentRepot
 from src.interface_adapter.controller.controller import StudentController
 from src.entities.student_entitie import Faculty, Grade, ID_SIZE
+import os
+from dotenv import load_dotenv
 
-
-
+load_dotenv()
 REPOSITORY_FILE = "src/interface_adapter/repositories/student_repo.json"
 COMMANDS = "Commands: 1. add | 2. list | 3. search by id | 4. search by name | 5. delete | 0. quit"
 
+
+def _build_db_connection_string() -> str:
+    db_name = os.getenv("DB_NAME")
+    db_user = os.getenv("DB_USER")
+    db_password = os.getenv("DB_PASSWORD")
+    db_host = os.getenv("DB_HOST", "localhost")
+    db_port = os.getenv("DB_PORT", "5432")
+    return (
+        f"dbname={db_name} user={db_user} password={db_password} "
+        f"host={db_host} port={db_port}"
+    )
 
 
 def _chooseFaculty() -> Faculty:
@@ -89,8 +101,8 @@ def _chooseGade() -> Grade:
 
 
 def runCliApp() -> None:
-    repository = InMemoryRepository(REPOSITORY_FILE)
-    id_generator = InMemoryStudentIdGenerator(repository)
+    repository = PosGreSQLSudentRepot(_build_db_connection_string())
+    id_generator = SqlStudentIdGenerator(repository)
     controller = StudentController(repository, id_generator)
 
     _C._banner("Clean Architecture Student Manager CLI")
