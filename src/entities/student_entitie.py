@@ -34,7 +34,8 @@ class Student:
     firstname : str
     lastname : str
     faculty : Faculty
-    id : str 
+    id : str
+    photo : str 
     grade : Grade = Grade.PREP
     gpa : str = "0"
 

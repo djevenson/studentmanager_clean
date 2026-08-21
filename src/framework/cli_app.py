@@ -1,5 +1,6 @@
 from src.interface_adapter.presenters.presenter import StudentPresenter, _C
 from src.interface_adapter.repositories.sql_repo import SqlStudentIdGenerator, PosGreSQLSudentRepot
+from src.interface_adapter.repositories.memory_repo import InMemoryRepository, InMemoryStudentIdGenerator
 from src.interface_adapter.controller.controller import StudentController
 from src.entities.student_entitie import Faculty, Grade, ID_SIZE
 import os
@@ -99,11 +100,14 @@ def _chooseGade() -> Grade:
             print(StudentPresenter._gradeToCliOption())
 
 
+MEMORY_REPO = InMemoryRepository(REPOSITORY_FILE)
+MEMORY_ID = InMemoryStudentIdGenerator(MEMORY_REPO)
+
+SQL_REPO = PosGreSQLSudentRepot(_build_db_connection_string())
+SQL_ID = SqlStudentIdGenerator(SQL_REPO)
 
 def runCliApp() -> None:
-    repository = PosGreSQLSudentRepot(_build_db_connection_string())
-    id_generator = SqlStudentIdGenerator(repository)
-    controller = StudentController(repository, id_generator)
+    controller = StudentController(MEMORY_REPO, MEMORY_ID)
 
     _C._banner("Clean Architecture Student Manager CLI")
 
@@ -124,8 +128,8 @@ def runCliApp() -> None:
             firstname = input("Firstname   : ")
             lastname = input("Lastname    : ")
             faculty = _chooseFaculty() 
-
-            output = controller.addStudent( firstname, lastname, faculty)
+            photo=""
+            output = controller.addStudent( firstname, lastname, faculty, photo)
             if not output["succes"]:
                 _C._err(f"{output["message"]}\n")
             else:

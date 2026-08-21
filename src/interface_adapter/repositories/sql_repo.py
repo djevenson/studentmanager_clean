@@ -19,6 +19,7 @@ class PosGreSQLSudentRepot:
                     id          VARCHAR(10) PRIMARY KEY,
                     firstname   VARCHAR(120) NOT NULL,
                     lastname    VARCHAR(120) NOT NULL,
+                    photo       VARCHAR(120),
                     faculty     VARCHAR(5),
                     grade       VARCHAR(10),
                     gpa         VARCHAR(4)
@@ -29,9 +30,9 @@ class PosGreSQLSudentRepot:
          with self._getConnection() as connection:
             with connection.cursor() as cursor:
                 cursor.execute("""
-                    INSERT INTO students (id, firstname, lastname, faculty, grade, gpa)
-                    VALUES (%s, %s, %s, %s, %s, %s)
-                """, self._toRow(student))
+                    INSERT INTO students (id, firstname, lastname, photo, faculty, grade, gpa)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s)
+                """, self._toRow(student),)
                 return student
 
     def deleteStudent(self, id:str) -> bool:
@@ -114,7 +115,7 @@ class PosGreSQLSudentRepot:
 
     def _toRow(self, student:Student) -> tuple:
         return (
-            student.id, student.firstname, student.lastname,
+            student.id, student.firstname, student.lastname, student.photo,
             student.faculty.name, student.grade.name, student.gpa
         )
     def _fromRow(self, row:tuple) -> Student:
@@ -122,9 +123,10 @@ class PosGreSQLSudentRepot:
             id=row[0],
             firstname=row[1],
             lastname=row[2],
-            faculty=Faculty[row[3]],
-            grade=Grade[row[4]],
-            gpa=row[5]
+            photo=row[3],
+            faculty=Faculty[row[4]],
+            grade=Grade[row[5]],
+            gpa=row[6]
         )
 
 class SqlStudentIdGenerator(StudentIdGeneratorInterface):

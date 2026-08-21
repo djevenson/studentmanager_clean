@@ -14,7 +14,6 @@ class InMemoryRepository(StudentRepo):
         self._student_store:List[Dict[str, Any]] = self._chargeStudent()
 
     def addStudent(self, student:Student) -> Optional[Student]:
-        #student_dict  = self._toDict(student)
         if self._saveStudent(student):
             return student
         return None
@@ -109,7 +108,8 @@ class InMemoryRepository(StudentRepo):
         return Student(
             id=student["id"],
             firstname=student["firstname"],
-            lastname=student["lastname"], 
+            lastname=student["lastname"],
+            photo=student["photo"], 
             faculty=Faculty(student["faculty"]), 
             grade=Grade(student["grade"]),
             gpa=student["gpa"] 
@@ -120,6 +120,7 @@ class InMemoryRepository(StudentRepo):
             "id": student.id,
             "firstname": student.firstname,
             "lastname": student.lastname,
+            "photo": student.photo,
             "faculty": student.faculty.value,
             "grade": student.grade.value,
             "gpa": student.gpa

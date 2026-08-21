@@ -15,10 +15,11 @@ class StudentController:
         self.search_name_use_case = SearchStudentByName(repository)
         self.show_use_case = ShowStudent(repository)
 
-    def addStudent(self, firstname:str, lastname:str, faculty:Faculty) -> Dict[str, Any]:
+    def addStudent(self, firstname:str, lastname:str, faculty:Faculty, photo:str) -> Dict[str, Any]:
         output_data = self.add_use_case.execute(AddStudentInput(
                 firstname=firstname,
                 lastname=lastname,
+                photo=photo,
                 faculty=faculty
             )
         )
