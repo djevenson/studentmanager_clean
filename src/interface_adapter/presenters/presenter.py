@@ -10,10 +10,15 @@ class StudentPresenter:
             "ID": student.id,
             "Firstname": student.firstname,
             "Lastname": student.lastname,
-            "Laculty": student.faculty.value,
+            "Photo": student.photo,
+            "Faculty": student.faculty.value,
             "Grade": student.grade.value,
             "GPA": student.gpa
         }
+
+    @staticmethod
+    def _toListDisct(students: List[Student]) -> List[Dict[str, Any]]:
+        return [StudentPresenter._toDict(student) for student in students]
 
     @staticmethod
     def _toCliTable(students:List[Student]) -> str:

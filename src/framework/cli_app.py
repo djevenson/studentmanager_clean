@@ -1,26 +1,13 @@
 from src.interface_adapter.presenters.presenter import StudentPresenter, _C
 from src.interface_adapter.repositories.sql_repo import SqlStudentIdGenerator, PosGreSQLSudentRepot
+from src.interface_adapter.repositories.sql_connection import build_db_connection_string
 from src.interface_adapter.repositories.memory_repo import InMemoryRepository, InMemoryStudentIdGenerator
 from src.interface_adapter.controller.controller import StudentController
-from src.entities.student_entitie import Faculty, Grade, ID_SIZE
-import os
-from dotenv import load_dotenv
+from src.entities.student_entitie import Faculty, Grade
 
-load_dotenv()
+
 REPOSITORY_FILE = "src/interface_adapter/repositories/student_repo.json"
 COMMANDS = "Commands: 1. add | 2. list | 3. search by id | 4. search by name | 5. delete | 0. quit"
-
-
-def _build_db_connection_string() -> str:
-    db_name = os.getenv("DB_NAME")
-    db_user = os.getenv("DB_USER")
-    db_password = os.getenv("DB_PASSWORD")
-    db_host = os.getenv("DB_HOST", "localhost")
-    db_port = os.getenv("DB_PORT", "5432")
-    return (
-        f"dbname={db_name} user={db_user} password={db_password} "
-        f"host={db_host} port={db_port}"
-    )
 
 
 def _chooseFaculty() -> Faculty:
@@ -81,33 +68,14 @@ def _optonalGade() -> Grade:
             print(StudentPresenter._gradeToCliOption())
 
 
-def _chooseGade() -> Grade:
-    print(StudentPresenter._gradeToCliOption())
-    while True:
-        cmd = input(f"{_C.BOLD}> {_C.RESET}").strip().lower()
-        if cmd in ("1", f"{Grade.PREP.value.lower()}"):
-            return Grade.PREP
-        elif cmd in ("2", f"{Grade.FRESHMAN.value.lower()}"):
-            return Grade.FRESHMAN
-        elif cmd in ("3", f"{Grade.SOFOMORE.value.lower()}"):
-            return Grade.SOFOMORE
-        elif cmd in ("4", f"{Grade.JUNIOR.value.lower()}"):
-            return Grade.JUNIOR
-        elif cmd in ("5", f"{Grade.SENIOR.value.lower()}"):
-            return Grade.SENIOR
-        else:
-            _C._inval(f"Enter '{cmd}' Invalide")
-            print(StudentPresenter._gradeToCliOption())
-
-
 MEMORY_REPO = InMemoryRepository(REPOSITORY_FILE)
 MEMORY_ID = InMemoryStudentIdGenerator(MEMORY_REPO)
 
-SQL_REPO = PosGreSQLSudentRepot(_build_db_connection_string())
+SQL_REPO = PosGreSQLSudentRepot(build_db_connection_string())
 SQL_ID = SqlStudentIdGenerator(SQL_REPO)
 
 def runCliApp() -> None:
-    controller = StudentController(MEMORY_REPO, MEMORY_ID)
+    controller = StudentController(SQL_REPO, SQL_ID)
 
     _C._banner("Clean Architecture Student Manager CLI")
 
