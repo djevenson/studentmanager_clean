@@ -3,3 +3,4 @@ pydentic
 fastapi
 psycopg2
 dotenv
+python-multipart

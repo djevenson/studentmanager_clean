@@ -1,4 +1,6 @@
-from fastapi import FastAPI, HTTPException, Query
+import os
+import uuid
+from fastapi import FastAPI, HTTPException, UploadFile, File, Query
 from src.interface_adapter.presenters.presenter import StudentPresenter
 from src.interface_adapter.repositories.sql_repo import SqlStudentIdGenerator, PosGreSQLSudentRepot
 from src.interface_adapter.repositories.sql_connection import build_db_connection_string
@@ -7,12 +9,24 @@ from src.interface_adapter.controller.controller import StudentController
 from src.entities.student_entitie import Faculty, Grade
 
 
+
+UPLOAD_DIR = "UPLOADS"
+os.makedirs(UPLOAD_DIR,exist_ok=True)
+
 REPOSITORY_FILE = "src/interface_adapter/repositories/student_repo.json"
 MEMORY_REPO = InMemoryRepository(REPOSITORY_FILE)
 MEMORY_ID = InMemoryStudentIdGenerator(MEMORY_REPO)
 
 SQL_REPO = PosGreSQLSudentRepot(build_db_connection_string())
 SQL_ID = SqlStudentIdGenerator(SQL_REPO)
+
+
+"""class AddStudent(BaseModel):
+    firstname : str
+    lastname : str
+    photo : UploadFile = File
+    faculty : Faculty = Query"""
+
 
 def createAPP():
     app = FastAPI(
@@ -27,6 +41,23 @@ def createAPP():
     @app.get("/health")
     async def health_check():
         return {"status": "great"}
+
+    @app.post("/students")
+    async def add_student(firstname : str, lastname : str, photo : UploadFile = File, faculty : Faculty = Query(None)):
+        ext = photo.filename.rsplit(".",1)[-1]
+        photo_name = f"{lastname}_{uuid.uuid4()}.{ext}"
+        photo_url = (os.path.join(UPLOAD_DIR, photo_name)).replace("\\","/")
+
+        result = controller.addStudent(firstname, lastname, faculty, photo_url)
+
+        if not result["succes"]:
+            raise HTTPException( status_code= 201, detail= result["message"])
+        return {
+            "message": result["message"], 
+            "student": presenter._toDict(result["student"])
+        }
+        
+    
 
     @app.get("/students/{id}")
     async def get_by_id(id:str):
