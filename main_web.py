@@ -1,8 +1,9 @@
 import uvicorn
 from src.framework.web_app import createAPP
 
+
+app = createAPP()
 if __name__ == "__main__":
-    app = createAPP()
     print("\n  Clean Architecture STUDENT Manager — REST API")
     print("  Running at http://127.0.0.1:8000\n")
     print("  Press CTRL+C to quit\n")

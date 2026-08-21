@@ -2,6 +2,7 @@ import os
 import uuid
 from fastapi import FastAPI, HTTPException, UploadFile, File, Query
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 from src.interface_adapter.presenters.presenter import StudentPresenter
 from src.interface_adapter.repositories.sql_repo import SqlStudentIdGenerator, PosGreSQLSudentRepot
 from src.interface_adapter.repositories.sql_connection import build_db_connection_string
@@ -34,6 +35,13 @@ def createAPP():
         title = "STUDENT MANAGER API",
         description = "REST API FOR A STUDENT MANAGER THAT CAN ADD AND UPDATE SUDENT",
         version = "1.0.0"
+    )
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_methods=["*"],
+        allow_headers=["*"]
     )
 
     controller = StudentController(SQL_REPO, SQL_ID)
