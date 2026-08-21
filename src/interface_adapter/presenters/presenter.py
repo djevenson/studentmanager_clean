@@ -66,9 +66,9 @@ class _C:
     RED    = "\033[31m"
 
     def _banner(text: str) -> None:
-        print(f"\n{_C.BOLD}{_C.CYAN}{'=' * 50}{_C.RESET}")
-        print(f"{_C.BOLD}{_C.CYAN}  {text}{_C.RESET}")
-        print(f"{_C.BOLD}{_C.CYAN}{'=' * 50}{_C.RESET}\n")
+        print(f"\n{_C.BOLD}{_C.CYAN}{'=' * 101}{_C.RESET}")
+        print(f"{_C.BOLD}{_C.CYAN}{" " * 20}{text}{_C.RESET}")
+        print(f"{_C.BOLD}{_C.CYAN}{'=' * 101}{_C.RESET}\n")
 
     def _ok(msg: str) -> None:
         print(f"{_C.GREEN}  ✓  {msg}{_C.RESET}")
