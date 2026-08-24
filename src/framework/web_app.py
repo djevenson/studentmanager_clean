@@ -9,10 +9,11 @@ from src.interface_adapter.repositories.sql_connection import build_db_connectio
 from src.interface_adapter.repositories.memory_repo import InMemoryRepository, InMemoryStudentIdGenerator
 from src.interface_adapter.controller.controller import StudentController
 from src.entities.student_entitie import Faculty, Grade
+from typing import Optional
 
 
 
-UPLOAD_DIR = "UPLOADS"
+UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR,exist_ok=True)
 
 REPOSITORY_FILE = "src/interface_adapter/repositories/student_repo.json"
@@ -115,6 +116,26 @@ def createAPP():
             "message": result["message"], 
         }
 
-    app.mount("/UPLOADS",StaticFiles(directory="UPLOADS"),name="UPLOADS")
+    @app.put("/students/{id}")
+    async def update_student(id:str, gpa:str, photo:Optional[UploadFile]=File,faculty:Faculty=Query(None), grade:Grade=Query(None)):
+        photo_url= None
+        if photo:
+            ext = photo.filename.rsplit(".",1)[-1]
+            photo_name = f"{uuid.uuid4()}.{ext}"
+            photo_url = (os.path.join(UPLOAD_DIR, photo_name)).replace("\\","/")
+        result = controller.updateStudent(id, photo_url, faculty, grade, gpa)
+        if not result["succes"]:
+            raise HTTPException(status_code=201, detail=result["message"])
+
+        if photo_url:
+            with open (photo_url,"wb")as f:
+                f.write(await photo.read())
+
+        return {
+            "message":result["message"],
+            "student":result["student"]
+        }
+
+    app.mount(f"/{UPLOAD_DIR}",StaticFiles(directory=f"{UPLOAD_DIR}"),name=f"{UPLOAD_DIR}")
 
     return app

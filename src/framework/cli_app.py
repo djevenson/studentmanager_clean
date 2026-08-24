@@ -75,7 +75,7 @@ SQL_REPO = PosGreSQLSudentRepot(build_db_connection_string())
 SQL_ID = SqlStudentIdGenerator(SQL_REPO)
 
 def runCliApp() -> None:
-    controller = StudentController(SQL_REPO, SQL_ID)
+    controller = StudentController(MEMORY_REPO, MEMORY_ID)
 
     _C._banner("Clean Architecture Student Manager CLI")
 

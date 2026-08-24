@@ -27,6 +27,7 @@ class Grade(Enum):
     SOFOMORE = "Third grade"
     JUNIOR = "Fourth grade"
     SENIOR = "Fith grade"
+    FINISHED = "Finished"
 
 
 @dataclass
@@ -58,3 +59,22 @@ class Student:
         self.firstname = self.firstname.strip()
         self.lastname = self.lastname.strip()
         self.gpa = f"{gpa_value:.2f}"
+
+    def _in_prep(self) -> bool:
+        return self.grade == Grade.PREP
+
+    def validateGrade(self, grade:Grade) -> bool:
+        if self.grade == Grade.PREP and grade == Grade.FRESHMAN:
+            return True
+        elif self.grade == Grade.FRESHMAN and grade == Grade.SOFOMORE:
+            return True
+        elif self.grade == Grade.SOFOMORE and grade == Grade.JUNIOR:
+            return True
+        elif self.grade == Grade.JUNIOR and grade == Grade.SENIOR:
+            return True
+        elif self.grade == Grade.SENIOR and grade == Grade.FINISHED:
+            return True
+        else:
+            return False
+        
+        

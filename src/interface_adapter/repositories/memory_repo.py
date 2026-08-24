@@ -66,7 +66,17 @@ class InMemoryRepository(StudentRepo):
                 students.append(self._fromDict(s))
         return students
 
-
+    def updateStudent(self, student:Student) -> Optional[Student]:
+        for s in self._student_store:
+            if s.get("id") == student.id.strip():
+                s["photo"]=student.photo
+                s["faculty"]=student.faculty
+                s["grade"]=student.grade
+                s["gpa"]=student.gpa
+                return self._fromDict(s)
+            return None
+        
+                
     def getLastRank(self, prefix:str) -> int:
         matching_ranks = [
             int(s["id"][6:]) for s in self._student_store if s["id"].startswith(prefix) and len(s["id"]) == ID_SIZE
