@@ -105,8 +105,10 @@ class PosGreSQLSudentRepot:
                 cursor.execute("""
                     UPDATE students SET photo=%s, faculty=%s, grade=%s, gpa=%s WHERE id=%s RETURNING *
                 """, (student.photo, student.faculty.name, student.grade.name, student.gpa, student.id))
-                rows = cursor.fetchall()
-                return [self._fromRow(row) for row in rows]
+                row = cursor.fetchone()
+                if row:
+                    return self._fromRow(row)
+                return None
 
     def getLastRank(self, prefix:str) -> int:
         with self._getConnection() as connection:

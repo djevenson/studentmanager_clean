@@ -7,7 +7,7 @@ from src.entities.student_entitie import Faculty, Grade
 
 
 REPOSITORY_FILE = "src/interface_adapter/repositories/student_repo.json"
-COMMANDS = "Commands: 1. add | 2. list | 3. search by id | 4. search by name | 5. delete | 0. quit"
+COMMANDS = "Commands: 1. add | 2. list | 3. search by id | 4. search by name | 5.update | 6. delete | 0. quit"
 
 
 def _chooseFaculty() -> Faculty:
@@ -75,7 +75,7 @@ SQL_REPO = PosGreSQLSudentRepot(build_db_connection_string())
 SQL_ID = SqlStudentIdGenerator(SQL_REPO)
 
 def runCliApp() -> None:
-    controller = StudentController(MEMORY_REPO, MEMORY_ID)
+    controller = StudentController(SQL_REPO, SQL_ID)
 
     _C._banner("Clean Architecture Student Manager CLI")
 
@@ -136,8 +136,19 @@ def runCliApp() -> None:
                 print(StudentPresenter._toCliDetail(output["student"]))
                 
 
-            
-        elif cmd in ("delete", "5"):
+        elif cmd in ("update", "5"):
+            id = input("ID          : ").strip()
+            faculty = _optionalFaculty()
+            grade = _optonalGade()
+            gpa = input("GPA         : ")
+            output = controller.updateStudent(id, None, faculty, grade, gpa)
+            if not output["succes"]:
+                _C._err(f"{output["message"]}\n")
+            else:
+                _C._ok(f"{output["message"]}\n")
+                print(StudentPresenter._toCliDetail(output["student"]))
+              
+        elif cmd in ("delete", "6"):
             id = input("ID          : ").strip()
             output = controller.deleteStudent(id)
             if not output["succes"]:
