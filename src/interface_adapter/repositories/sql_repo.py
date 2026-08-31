@@ -99,6 +99,15 @@ class PosGreSQLSudentRepot:
                 rows = cursor.fetchall()
                 return [self._fromRow(row) for row in rows]
 
+    def updateStudent(self, student:Student) -> Optional[Student]:
+        with self._getConnection() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("""
+                    UPDATE students SET (photo=%s, faculty=%s, grade=%s, gpa=%s) WHERE id=%s
+                """, (student.photo, student.faculty.name, student.grade.name, student.gpa, student.id))
+                rows = cursor.fetchall()
+                return [self._fromRow(row) for row in rows]
+
     def getLastRank(self, prefix:str) -> int:
         with self._getConnection() as connection:
             with connection.cursor() as cursor:

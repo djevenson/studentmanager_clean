@@ -37,8 +37,14 @@ class StudentRepo(ABC):
         ...
 
     @abstractmethod
+    def updateStudent(self, student:Student) -> Optional[Student]:
+        ...
+
+    @abstractmethod
     def getLastRank(self, prefix:str) -> int:
         ...
+
+
 
 
 

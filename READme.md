@@ -88,12 +88,12 @@ studentmanager_clean/
 
 ### requirements.txt
 #### list of required dependencies for the application
-* pytest
+* dotenv
 * uvicorn
 * fastapi
 * psycopg2
 * pydantic
-* python-dotenv
+* python-multipart
 
 ## Usage
 1. Run the application:

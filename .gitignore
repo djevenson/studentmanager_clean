@@ -1,4 +1,5 @@
 .env
 _pycache_/
 venv/
+UPLOADS/
 src/interface_adapter/repositories/student_repo.json

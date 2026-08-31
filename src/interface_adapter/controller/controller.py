@@ -3,6 +3,7 @@ from src.use_case.add_student import AddStudent, AddStudentInput
 from src.use_case.delete_student import DeleteStudent, DeleteStudentInput
 from src.use_case.search_student import SearchStudentByName, SearchStudentById, SearchStudentByIdInput, SearchStudentByNameInput
 from src.use_case.show_student import ShowStudentInput, ShowStudent
+from src.use_case.update_student import UpdateStudent, UpdateStudentInput
 from src.use_case.interface.interface import StudentRepo, StudentIdGeneratorInterface
 from src.entities.student_entitie import Faculty, Grade
 
@@ -14,6 +15,7 @@ class StudentController:
         self.search_id_use_case = SearchStudentById(repository)
         self.search_name_use_case = SearchStudentByName(repository)
         self.show_use_case = ShowStudent(repository)
+        self.update_use_case = UpdateStudent(repository)
 
     def addStudent(self, firstname:str, lastname:str, faculty:Faculty, photo:str) -> Dict[str, Any]:
         output_data = self.add_use_case.execute(AddStudentInput(
@@ -67,4 +69,19 @@ class StudentController:
             "grade": output_data.grade,
             "students": output_data.students,
             "total": output_data.total
+        }
+
+    def updateStudent(self,id:str, photo:str, faculty:Faculty, grade:Grade, gpa:str) -> Dict[str, Any]:
+        output_data = self.update_use_case.execute(UpdateStudentInput(
+            id = id,
+            photo = photo,
+            faculty = faculty,
+            grade = grade,
+            gpa = gpa
+            )
+        )
+        return {
+            "message": output_data.message,
+            "succes": output_data.status,
+            "student": output_data.student
         }
