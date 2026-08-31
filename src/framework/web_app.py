@@ -55,7 +55,7 @@ def createAPP():
 
 
     @app.post("/students")
-    async def add_student(firstname : str, lastname : str, photo : UploadFile = File, faculty : Faculty = Query(Faculty.CE)):
+    async def add_student(firstname : str, lastname : str, photo : UploadFile = File, faculty : Faculty = Query(None)):
         ext = photo.filename.rsplit(".",1)[-1]
         photo_name = f"{lastname}_{uuid.uuid4()}.{ext}"
         photo_url = (os.path.join(UPLOAD_DIR, photo_name)).replace("\\","/")
